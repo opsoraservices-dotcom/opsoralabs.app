@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opsora Labs - Download</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Main Layout */
+        .main-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        /* Combined Logo & Download Card */
+        .combined-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        @media (min-width: 768px) {
+            .combined-card {
+                flex-direction: row;
+                align-items: center;
+                gap: 40px;
+                padding: 35px;
+            }
+        }
+        
+        /* Left Side - Logo & App Info */
+        .logo-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        @media (min-width: 768px) {
+            .logo-section {
+                flex-direction: row;
+                align-items: center;
+                gap: 25px;
+                text-align: left;
+            }
+        }
+        
+        .app-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 22px;
+            object-fit: cover;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .app-logo {
+                width: 120px;
+                height: 120px;
+                margin-bottom: 0;
+            }
+        }
+        
+        .app-info {
+            flex: 1;
+        }
+        
+        .app-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
+        }
+        
+        .app-developer {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+        
+        .app-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        @media (min-width: 768px) {
+            .app-tags {
+                justify-content: flex-start;
+            }
+        }
+        
+        .app-tag {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.07);
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            opacity: 0.9;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Right Side - Download Section */
+        .download-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        
+        @media (min-width: 768px) {
+            .download-section {
+                width: auto;
+                align-items: flex-end;
+            }
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 15px 30px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            min-width: 200px;
+            margin-bottom: 15px;
+        }
+        
+        .download-btn:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .download-btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .file-info {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        @media (min-width: 768px) {
+            .file-info {
+                justify-content: flex-end;
+            }
+        }
+        
+        /* Screenshots Card */
+        .screenshots-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 30px;
+        }
+        
+        .screenshots-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .screenshots-title i {
+            font-size: 1.3rem;
+        }
+        
+        .screenshots-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        @media (min-width: 768px) {
+            .screenshots-container {
+                flex-direction: row;
+                justify-content: center;
+                gap: 20px;
+            }
+        }
+        
+        .screenshot-item {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .screenshot-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Feature Cards */
+        .card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            font-size: 1.2rem;
+        }
+        
+        .card-content {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            opacity: 0.8;
+        }
+        
+        /* Stats Card */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 12px 5px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            opacity: 0.7;
+            font-size: 0.85rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .combined-card, .screenshots-card {
+                padding: 20px;
+            }
+            
+            .app-logo {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .app-name {
+                font-size: 1.6rem;
+            }
+            
+            .download-btn {
+                min-width: 100%;
+                padding: 14px 20px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .screenshot-item {
+                max-width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="main-layout">
+            <!-- Combined Logo & Download Card -->
+            <div class="combined-card">
+                <!-- Left Side - Logo & App Info -->
+                <div class="logo-section">
+                    <img src="/logo.png" 
+                         alt="Opsora Labs Logo" 
+                         class="app-logo"
+                         id="appLogo">
+                    
+                    <div class="app-info">
+                        <h1 class="app-name">Opsora Labs</h1>
+                        <p class="app-developer">Opsora Development Team</p>
+                        <div class="app-tags">
+                            <span class="app-tag">Productivity</span>
+                            <span class="app-tag">Tools</span>
+                            <span class="app-tag">Developer</span>
+                            <span class="app-tag">Android</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Side - Download Section -->
+                <div class="download-section">
+                    <a href="opsora.apk" class="download-btn" id="downloadBtn" download>
+                        <i class="fas fa-download"></i> Install
+                    </a>
+                    
+                    <div class="file-info">
+                        <span>v2.4.1</span>
+                        <span>24.7 MB</span>
+                        <span>Android 8.0+</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Screenshots Card -->
+            <div class="screenshots-card">
+                <h2 class="screenshots-title"><i class="fas fa-images"></i> Screenshots</h2>
+                <div class="screenshots-container">
+                    <div class="screenshot-item">
+                        <img src="/ss1.png" 
+                             alt="Opsora Labs Screenshot 1" 
+                             class="screenshot-img"
+                             id="screenshot1">
+                    </div>
+                    <div class="screenshot-item">
+                        <img src="/ss2.png" 
+                             alt="Opsora Labs Screenshot 2" 
+                             class="screenshot-img"
+                             id="screenshot2">
+                    </div>
+                    <div class="screenshot-item">
+                        <img src="/ss3.png" 
+                             alt="Opsora Labs Screenshot 3" 
+                             class="screenshot-img"
+                             id="screenshot3">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cards Grid -->
+            <div class="cards-grid">
+                <!-- Features Card -->
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-star"></i> Key Features</h3>
+                    <div class="card-content">
+                        <ul class="feature-list">
+                            <li>Advanced system tools and utilities</li>
+                            <li>Developer-focused functionality</li>
+                            <li>Clean, intuitive user interface</li>
+                            <li>Regular updates with new features</li>
+                            <li>Optimized for performance</li>
+                            <li>No unnecessary permissions</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Stats Card -->
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-chart-line"></i> App Stats</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">4.6★</div>
+                            <div class="stat-label">User Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">1M+</div>
+                            <div class="stat-label">Downloads</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">47.2K</div>
+                            <div class="stat-label">Active Users</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">98%</div>
+                            <div class="stat-label">Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Installation Card -->
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-info-circle"></i> Installation Guide</h3>
+                    <div class="card-content">
+                        <p>1. Tap the Install button</p>
+                        <p>2. Open the downloaded file</p>
+                        <p>3. Allow installation from unknown sources</p>
+                        <p>4. Follow the on-screen instructions</p>
+                        <p>5. Launch and enjoy!</p>
+                    </div>
+                </div>
+                
+                <!-- Requirements Card -->
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-check-circle"></i> Requirements</h3>
+                    <div class="card-content">
+                        <ul class="feature-list">
+                            <li>Android 8.0 or higher</li>
+                            <li>Minimum 2GB RAM</li>
+                            <li>50MB free storage</li>
+                            <li>Internet connection for some features</li>
+                            <li>No root required</li>
+                            <li>Works on most devices</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Updates Card -->
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-sync-alt"></i> Recent Updates</h3>
+                    <div class="card-content">
+                        <p><strong>Version 2.4.1 (Jan 2024):</strong></p>
+                        <ul class="feature-list">
+                            <li>Performance improvements</li>
+                            <li>New developer tools added</li>
+                            <li>Bug fixes and stability enhancements</li>
+                            <li>Android 14 compatibility</li>
+                            <li>Reduced app size by 15%</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Support Card -->
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-headset"></i> Support</h3>
+                    <div class="card-content">
+                        <p>Need help with Opsora Labs?</p>
+                        <ul class="feature-list">
+                            <li>Check our online documentation</li>
+                            <li>Join our developer community</li>
+                            <li>Report bugs via in-app feature</li>
+                            <li>Email support available</li>
+                            <li>Regular FAQ updates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="footer">
+                <p>© 2024 Opsora Labs. All rights reserved.</p>
+                <p style="margin-top: 5px;">Download from official source only</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simple error handling for images
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    if(this.id === 'appLogo') {
+                        this.style.display = 'none';
+                        const parent = this.parentElement;
+                        const placeholder = document.createElement('div');
+                        placeholder.style.width = '100px';
+                        placeholder.style.height = '100px';
+                        placeholder.style.borderRadius = '22px';
+                        placeholder.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                        placeholder.style.display = 'flex';
+                        placeholder.style.alignItems = 'center';
+                        placeholder.style.justifyContent = 'center';
+                        placeholder.style.fontSize = '2rem';
+                        placeholder.style.fontWeight = 'bold';
+                        placeholder.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+                        placeholder.textContent = 'OL';
+                        parent.insertBefore(placeholder, this.nextSibling);
+                    } else if(this.classList.contains('screenshot-img')) {
+                        this.style.display = 'none';
+                        const parent = this.parentElement;
+                        parent.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
+                        parent.style.display = 'flex';
+                        parent.style.alignItems = 'center';
+                        parent.style.justifyContent = 'center';
+                        parent.innerHTML = '<i class="fas fa-image" style="font-size: 2rem; opacity: 0.5;"></i>';
+                    }
+                });
+            });
+            
+            // Download button click
+            const downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.addEventListener('click', function() {
+                this.style.opacity = '0.8';
+                setTimeout(() => {
+                    this.style.opacity = '1';
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
